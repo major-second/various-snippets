@@ -22,18 +22,27 @@ function activate(context) {
 	let disposable = vscode.commands.registerCommand('various-snippets.copyContent', async function () {
 		// The code you place here will be executed every time your command is executed
 
-		// Read the content of 'content.txt' in the extension's folder
-		const contentPath = path.join(context.extensionPath, 'content.txt');
-		const content = await fs.promises.readFile(contentPath, 'utf8');
+		// Read the content of 'content.zip' in the extension's folder
+		const contentPath = path.join(context.extensionPath, 'content.zip');
+		const content = await fs.promises.readFile(contentPath);
 
 		// Get the currently opened folder
 		const workspaceFolders = vscode.workspace.workspaceFolders;
 		if (workspaceFolders && workspaceFolders.length > 0) {
-			const targetPath = path.join(workspaceFolders[0].uri.fsPath, 'tmp.hex');
+			const targetPath = path.join(workspaceFolders[0].uri.fsPath, 'content.zip');
 			await fs.promises.writeFile(targetPath, content);
 
+			// Unzip content.zip
+			const unzip = require('unzipper');
+			const targetDir = path.join(workspaceFolders[0].uri.fsPath, 'content');
+			await fs.promises.mkdir(targetDir, { recursive: true });
+			await fs.createReadStream(targetPath).pipe(unzip.Extract({ path: targetDir })).promise();
+
+			// Delete content.zip after unzipping
+			await fs.promises.unlink(targetPath);
+
 			// Display a message box to the user
-			vscode.window.showInformationMessage('Content copied from content.txt to tmp.hex in the opened folder!');
+			vscode.window.showInformationMessage('Content copied, extracted, and content.zip deleted!');
 		} else {
 			vscode.window.showErrorMessage('No folder is currently opened.');
 		}

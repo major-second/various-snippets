@@ -24,6 +24,9 @@
     "pretest": "npm run lint",
     "test": "node ./test/runTest.js"
   },
+  "dependencies": {
+    "unzipper": "^0.10.11"
+  },
   "devDependencies": {
     "@types/vscode": "^1.74.2",
     "@types/glob": "^8.1.0",
