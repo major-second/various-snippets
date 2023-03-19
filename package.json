@@ -4,6 +4,7 @@
   "displayName": "Various Snippets",
   "description": "",
   "version": "0.0.1",
+  "repository": {},
   "engines": {
     "vscode": "^1.74.2"
   },
@@ -14,8 +15,8 @@
   "main": "./extension.js",
   "contributes": {
     "commands": [{
-      "command": "various-snippets.helloWorld",
-      "title": "Hello World"
+      "command": "various-snippets.copyContent",
+      "title": "Copy Content"
     }]
   },
   "scripts": {
