@@ -3,7 +3,7 @@
     "publisher":  "YourongZhang",
     "displayName":  "Various Snippets",
     "description":  "",
-    "version":  "0.0.4",
+    "version":  "0.1.18",
     "repository":  {
 
                    },
@@ -19,7 +19,10 @@
     "main":  "./extension.js",
     "contributes":  {
                         "commands":  [
-                                         "@{command=various-snippets.copyContent; title=Copy Content}"
+                                         {
+                                             "command":  "various-snippets.copyContent",
+                                             "title":  "Copy Content"
+                                         }
                                      ]
                     },
     "scripts":  {
@@ -28,7 +31,7 @@
                     "test":  "node ./test/runTest.js"
                 },
     "dependencies":  {
-                         "unzipper":  "^0.10.11"
+
                      },
     "devDependencies":  {
                             "@types/vscode":  "^1.74.2",
